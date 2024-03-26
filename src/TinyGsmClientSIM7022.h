@@ -147,7 +147,15 @@ class TinyGsmSim7022 : public TinyGsmModem<TinyGsmSim7022>,
    * Constructor
    */
  public:
-  explicit TinyGsmSim7022(Stream& stream) : stream(stream) {
+  explicit TinyGsmSim7022(Stream& stream)
+      : stream(stream)
+        resetPin(-1) {
+    memset(sockets, 0, sizeof(sockets));
+  }
+
+  TinyGsmSim7022(Stream& stream, int8_t resetPin)
+      : stream(stream),
+        resetPin(resetPin) {
     memset(sockets, 0, sizeof(sockets));
   }
 
@@ -239,19 +247,19 @@ class TinyGsmSim7022 : public TinyGsmModem<TinyGsmSim7022>,
    * Power functions
    */
  protected:
-  bool restartImpl(const char* pin = NULL) {
-    if (pin == NULL) {
+  bool restartImpl() {
+    if (resetPin == -1) {
       return false;
     }
 
-      /* Hardware Reset */
-      pinMode(pin, OUTPUT);
-      digitalWrite(pin, LOW);
-      delay(300);
-      digitalWrite(pin, HIGH);
-      delay(5000);
+    /* Hardware Reset */
+    pinMode(resetPin, OUTPUT);
+    digitalWrite(resetPin, LOW);
+    delay(300);
+    digitalWrite(resetPin, HIGH);
+    delay(5000);
 
-      return true;
+    return true;
   }
 
   bool powerOffImpl() {
@@ -630,7 +638,8 @@ class TinyGsmSim7022 : public TinyGsmModem<TinyGsmSim7022>,
 
  protected:
   GsmClientSim7022* sockets[TINY_GSM_MUX_COUNT];
-  const char*      gsmNL = GSM_NL;
+  const char*       gsmNL = GSM_NL;
+  int8_t            resetPin;
 };
 
 #endif  // SRC_TINYGSMCLIENTSIM7022_H_
