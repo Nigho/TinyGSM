@@ -145,21 +145,6 @@ class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
     }
   }
 
-  String getModemNameImpl() {
-    String name = "SIMCom SIM7022";
-
-    sendAT(GF("+CGMM"));
-    String res2;
-    if (waitResponse(1000L, res2) != 1) { return name; }
-    res2.replace(GSM_NL "OK" GSM_NL, "");
-    res2.replace("_", " ");
-    res2.trim();
-
-    name = res2;
-    DBG("### Modem:", name);
-    return name;
-  }
-
   /*
    * Power functions
    */

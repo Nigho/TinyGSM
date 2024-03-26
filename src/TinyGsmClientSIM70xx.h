@@ -85,7 +85,11 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
   String getModemNameImpl() {
     String name = "SIMCom SIM7000";
 
+#if defined(TINY_GSM_MODEM_SIM7022)
+    thisModem().sendAT(GF("+CGMM"));
+#else
     thisModem().sendAT(GF("+GMM"));
+#endif
     String res2;
     if (thisModem().waitResponse(5000L, res2) != 1) { return name; }
     res2.replace(GSM_NL "OK" GSM_NL, "");
