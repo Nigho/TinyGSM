@@ -148,7 +148,7 @@ class TinyGsmSim7022 : public TinyGsmModem<TinyGsmSim7022>,
    */
  public:
   explicit TinyGsmSim7022(Stream& stream)
-      : stream(stream)
+      : stream(stream),
         resetPin(-1) {
     memset(sockets, 0, sizeof(sockets));
   }
