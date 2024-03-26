@@ -247,7 +247,7 @@ class TinyGsmSim7022 : public TinyGsmModem<TinyGsmSim7022>,
    * Power functions
    */
  protected:
-  bool restartImpl() {
+  bool restartImpl(const char* pin = NULL) {
     if (resetPin == -1) {
       return false;
     }
@@ -259,7 +259,7 @@ class TinyGsmSim7022 : public TinyGsmModem<TinyGsmSim7022>,
     digitalWrite(resetPin, HIGH);
     delay(5000);
 
-    return true;
+    return init(pin);
   }
 
   bool powerOffImpl() {
