@@ -20,7 +20,6 @@
 
 
 class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
-                      public TinyGsmSMS<TinyGsmSim7022>,
                       public TinyGsmTCP<TinyGsmSim7022, TINY_GSM_MUX_COUNT> {
   friend class TinyGsmSim70xx<TinyGsmSim7022>;
   friend class TinyGsmTCP<TinyGsmSim7022, TINY_GSM_MUX_COUNT>;
