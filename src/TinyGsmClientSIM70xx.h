@@ -261,6 +261,18 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
    * SIM card functions
    */
  protected:
+#if defined(TINY_GSM_MODEM_SIM7022)
+  // This uses "CGSN" instead of "GSN"
+  String getIMEIImpl() {
+    sendAT(GF("+CGSN"));
+    if (waitResponse(GF(GSM_NL)) != 1) { return ""; }
+    String res = stream.readStringUntil('\n');
+    waitResponse();
+    res.trim();
+    return res;
+  }
+#endif
+
   // Doesn't return the "+CCID" before the number
   String getSimCCIDImpl() {
     thisModem().sendAT(GF("+CCID"));
