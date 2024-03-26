@@ -125,14 +125,6 @@ class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
 
     DBG(GF("### Modem:"), getModemName());
 
-    // Enable Local Time Stamp for getting network time
-        sendAT(GF("+CLTS=1"));
-    if (waitResponse(10000L) != 1) { return false; }
-
-    // Enable battery checks
-    sendAT(GF("+CBATCHK=1"));
-    if (waitResponse() != 1) { return false; }
-
     SimStatus ret = getSimStatus();
     // if the sim isn't ready and a pin has been provided, try to unlock the sim
     if (ret != SIM_READY && pin != NULL && strlen(pin) > 0) {
