@@ -41,7 +41,6 @@ typedef TinyGsmSim7000SSL::GsmClientSecureSIM7000SSL TinyGsmClientSecure;
 #include "TinyGsmClientSIM7022.h"
 typedef TinyGsmSim7022                   TinyGsm;
 typedef TinyGsmSim7022::GsmClientSim7022 TinyGsmClient;
-typedef TinyGsmSim7022SSL::GsmClientSecureSIM7022SSL TinyGsmClientSecure;
 
 #elif defined(TINY_GSM_MODEM_SIM7070) || defined(TINY_GSM_MODEM_SIM7080) || \
     defined(TINY_GSM_MODEM_SIM7090)
