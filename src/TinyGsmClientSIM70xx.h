@@ -264,7 +264,7 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
 #if defined(TINY_GSM_MODEM_SIM7022)
   // This uses "CGSN" instead of "GSN"
   String getIMEIImpl() {
-    thisModem().sendAT(GF("+CGSN"));
+    thisModem().sendAT(GF("+CGSN=1"));
     if (thisModem().waitResponse(GF(GSM_NL)) != 1) { return ""; }
     String res = stream.readStringUntil('\n');
     thisModem().waitResponse();
