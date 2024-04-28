@@ -266,7 +266,14 @@ class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
    * SIM card functions
    */
  protected:
-  // Follows the SIM70xx template
+  String getIMEIImpl() {
+    thisModem().sendAT(GF("+CGSN=1"));
+    if (thisModem().waitResponse(GF(GSM_NL)) != 1) { return ""; }
+    String res = stream.readStringUntil('\n');
+    thisModem().waitResponse();
+    res.trim();
+    return res;
+  }
 
   /*
    * Messaging functions

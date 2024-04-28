@@ -120,11 +120,7 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
    */
  protected:
   bool restartImpl(const char* pin = NULL) {
-    thisModem().sendAT(GF("E0"));  // Echo Off
-    thisModem().waitResponse();
-    if (!thisModem().setPhoneFunctionality(0)) { return false; }
-    if (!thisModem().setPhoneFunctionality(1, true)) { return false; }
-    thisModem().waitResponse(30000L, GF("SMS Ready"));
+    thisModem().restartImpl(pin);
     return thisModem().initImpl(pin);
   }
 
@@ -261,17 +257,9 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
    * SIM card functions
    */
  protected:
-#if defined(TINY_GSM_MODEM_SIM7022)
-  // This uses "CGSN" instead of "GSN"
   String getIMEIImpl() {
-    thisModem().sendAT(GF("+CGSN=1"));
-    if (thisModem().waitResponse(GF(GSM_NL)) != 1) { return ""; }
-    String res = stream.readStringUntil('\n');
-    thisModem().waitResponse();
-    res.trim();
-    return res;
+    returnthisModem().getIMEIImpl();
   }
-#endif
 
   // Doesn't return the "+CCID" before the number
   String getSimCCIDImpl() {
