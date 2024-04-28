@@ -126,7 +126,7 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
     thisModem().waitResponse();
     if (!thisModem().setPhoneFunctionality(0)) { return false; }
     if (!thisModem().setPhoneFunctionality(1, true)) { return false; }
-    thisModem().waitResponse(30000L, GF("SMS Ready"));
+    thisModem().waitResponse(30000L, GF("ATReady"));
 
     return thisModem().initImpl(pin);
   }
