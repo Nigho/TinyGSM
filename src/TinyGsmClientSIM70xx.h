@@ -120,8 +120,10 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
    */
  protected:
   bool restartImpl(const char* pin = NULL) {
-    thisModem().restartImpl(pin);
+    DBG("Restarting modem");
+    if (!thisModem().restartImpl(pin)) { return false; }
 
+    BDG("Setting up modem");
     thisModem().sendAT(GF("E0"));  // Echo Off
     thisModem().waitResponse();
     if (!thisModem().setPhoneFunctionality(0)) { return false; }

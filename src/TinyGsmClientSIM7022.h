@@ -143,19 +143,17 @@ class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
  protected:
   bool restartImpl(const char* pin = NULL) {
     if (resetPin == -1) {
-      return false;
+      return true;
     }
 
     /* Hardware Reset */
     pinMode(resetPin, OUTPUT);
 
     DBG("Resetting module");
+    digitalWrite(resetPin, LOW);
+    delay(100);
     digitalWrite(resetPin, HIGH);
     delay(1000);
-    digitalWrite(resetPin, LOW);
-    delay(500);
-    digitalWrite(resetPin, HIGH);
-    delay(5000);
 
     if (!testAT()) { return false; }
   }
