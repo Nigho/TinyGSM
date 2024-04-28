@@ -258,7 +258,7 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
    */
  protected:
   String getIMEIImpl() {
-    returnthisModem().getIMEIImpl();
+    return thisModem().getIMEIImpl();
   }
 
   // Doesn't return the "+CCID" before the number
