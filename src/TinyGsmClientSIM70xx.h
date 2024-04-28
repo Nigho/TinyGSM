@@ -128,8 +128,8 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
     thisModem().waitResponse();
     if (!thisModem().setPhoneFunctionality(0)) { return false; }
     if (!thisModem().setPhoneFunctionality(1, true)) { return false; }
-    DBG("Waiting for SMS ready response");
-    thisModem().waitResponse(30000L, GF("SMS Ready"));
+    DBG("Waiting for SIM ready response");
+    thisModem().waitResponse(30000L, GF("SIM Ready"));
 
     return thisModem().initImpl(pin);
   }
