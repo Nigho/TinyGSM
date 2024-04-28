@@ -121,6 +121,13 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
  protected:
   bool restartImpl(const char* pin = NULL) {
     thisModem().restartImpl(pin);
+
+    thisModem().sendAT(GF("E0"));  // Echo Off
+    thisModem().waitResponse();
+    if (!thisModem().setPhoneFunctionality(0)) { return false; }
+    if (!thisModem().setPhoneFunctionality(1, true)) { return false; }
+    thisModem().waitResponse(30000L, GF("SMS Ready"));
+
     return thisModem().initImpl(pin);
   }
 
