@@ -267,10 +267,10 @@ class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
    */
  protected:
   String getIMEIImpl() {
-    thisModem().sendAT(GF("+CGSN=1"));
-    if (thisModem().waitResponse(GF(GSM_NL)) != 1) { return ""; }
+    sendAT(GF("+CGSN=1"));
+    if (waitResponse(GF(GSM_NL)) != 1) { return ""; }
     String res = stream.readStringUntil('\n');
-    thisModem().waitResponse();
+    waitResponse();
     res.trim();
     return res;
   }
