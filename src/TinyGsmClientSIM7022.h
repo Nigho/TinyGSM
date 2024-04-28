@@ -148,10 +148,14 @@ class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
 
     /* Hardware Reset */
     pinMode(resetPin, OUTPUT);
-    digitalWrite(resetPin, LOW);
-    delay(300);
+
+    DBG("Resetting module");
     digitalWrite(resetPin, HIGH);
-    delay(5000);
+    delay(1000);
+    digitalWrite(resetPin, LOW);
+    delay(500);
+    digitalWrite(resetPin, HIGH);
+    delay(1000);
 
     return init(pin);
   }
