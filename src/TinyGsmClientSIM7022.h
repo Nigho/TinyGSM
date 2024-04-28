@@ -155,7 +155,9 @@ class TinyGsmSim7022 : public TinyGsmSim70xx<TinyGsmSim7022>,
     digitalWrite(resetPin, LOW);
     delay(500);
     digitalWrite(resetPin, HIGH);
-    delay(3000);
+    delay(5000);
+
+    if (!testAT()) { return false; }
   }
 
   /*

@@ -126,7 +126,8 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
     thisModem().waitResponse();
     if (!thisModem().setPhoneFunctionality(0)) { return false; }
     if (!thisModem().setPhoneFunctionality(1, true)) { return false; }
-    thisModem().waitResponse(30000L, GF("ATReady"));
+    DBG("Waiting for SMS ready response");
+    thisModem().waitResponse(30000L, GF("SMS Ready"));
 
     return thisModem().initImpl(pin);
   }
@@ -147,6 +148,7 @@ class TinyGsmSim70xx : public TinyGsmModem<TinyGsmSim70xx<modemType>>,
 
   bool setPhoneFunctionalityImpl(uint8_t fun, bool reset = false) {
     thisModem().sendAT(GF("+CFUN="), fun, reset ? ",1" : "");
+    DBG("Waiting for phone functionality response");
     return thisModem().waitResponse(10000L) == 1;
   }
 
